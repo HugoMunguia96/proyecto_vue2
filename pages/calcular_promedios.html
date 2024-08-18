@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Promedios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+      *{
+      font-family: cursive;
+      font-size: large;
+      font-weight: bold;
+  }
+  body{
+      background-image: url(../img/mm.jpg);
+      background-repeat:no-repeat;
+      background-size: cover;
+      background-attachment:fixed;
+      
+            }
+  
+            #nombre, #nota1, #nota2, #nota3, #promedio{
+              background-color: rgba(255, 255, 255, 0.2);
+              color:#0202d4;
+            }
+            h1, h2{
+              color: #a6ff00;
+            }
+            label{
+              color: #0606df;
+            }
+            #header{
+              background-color: rgba(255, 255, 255, 0.2);
+            }
+            .container{
+              background-color: rgba(255, 255, 255, 0.2);
+              height: 525px;
+            }
+    </style>
+     <link rel="stylesheet" href="../css/style.css">
+  </head>
+  
+  <body class="bg-dark">
+    <div id="app" class="text-white">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#" v-text="apellido"></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a style="color: #0d0553;" class="nav-link active" aria-current="page" href="../index.html">Inicio</a>
+                      </li>
+                      <li class="nav-item">
+                        <a style="color: #0d0553;" class="nav-link" href="#">Calcular Promedios</a>
+                      </li>
+
+                  </div>
+                </div>
+              </nav>
+        </div>
+
+        <div class="container">
+            <h1>Utilice el formulario para agregar los datos a la tabla</h1>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <h2>Agregar Nota</h2>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="" id="nombre" class="form-control" v-model="nombre" >
+
+                    <label for="nota1">Nota 1:</label>
+                    <input type="number" name="" id="nota1" max="10" min="0" class="form-control" v-model="nota1">
+
+                    <label for="nota2">Nota 2:</label>
+                    <input type="number" name="" id="nota2" max="10" min="0" class="form-control" v-model="nota2">
+
+                    <label for="nota3">Nota 3:</label>
+                    <input type="number" name="" id="nota3" max="10" min="0" class="form-control" v-model="nota3">
+                    <br>
+                    <input style="background-color: #05ff26;"type="button" value="Guardar" class="btn btn-success" v-on:click="agregarNotas">
+
+                </div>
+
+                <div class="col-md-6 col-xs-12">
+                    <h2 v-if="lista.length > 0">Lista de Notas</h2>
+                    <h2 v-else="lista">No hay Notas</h2>
+                    <table class="table">
+                      <thead style=" background-color: rgba(255, 255, 255, 0.1);">
+                        <tr style=" background-color: rgba(255, 255, 255, 0.1);">
+                            <th style=" background-color: rgba(255, 255, 255, 0.1); color: rgba(25, 0, 255, 0.712);">Nombre</th>
+                            <th style=" background-color: rgba(255, 255, 255, 0.1);  color: rgba(25, 0, 255, 0.712);">Nota 1</th>
+                            <th style=" background-color: rgba(255, 255, 255, 0.1); color: rgba(25, 0, 255, 0.712);">Nota 2</th>
+                            <th style=" background-color: rgba(255, 255, 255, 0.1); color: rgba(25, 0, 255, 0.712);">Nota 3</th>
+                            <th style=" background-color: rgba(255, 255, 255, 0.1); color:rgba(25, 0, 255, 0.712);">Promedio</th>
+                            <th style=" background-color: rgba(255, 255, 255, 0.1); color:rgba(25, 0, 255, 0.712);">estado</th>
+                        </tr>
+                      </thead>
+                      <tbody style=" background-color: rgba(255, 255, 255, 0.1);">
+                        <tr v-for="item in lista">
+                            <td v-text="item.nombre" style=" background-color: rgba(255, 255, 255, 0.1);"></td>
+                            <td v-text="item.nota1" style=" background-color: rgba(255, 255, 255, 0.1);"></td>
+                            <td v-text="item.nota2" style=" background-color: rgba(255, 255, 255, 0.1);"></td>
+                            <td v-text="item.nota3" style=" background-color: rgba(255, 255, 255, 0.1);"></td>
+                            <td v-text="item.promedio" style=" background-color: rgba(255, 255, 255, 0.1);"></td>
+                            <td v-text="item.estado" style=" background-color: rgba(255, 255, 255, 0.1);"></td>
+                            
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="6" class="text-center" style=" background-color: rgba(255, 255, 255, 0.1); color:rgba(25, 0, 255, 0.712);">ULS Ciclo2-2024</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                </div>
+            </div>
+            
+
+        </div>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="../js/principal.js"></script>
+  </body>
+</html>
